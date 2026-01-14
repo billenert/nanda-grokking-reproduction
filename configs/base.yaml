@@ -1,0 +1,60 @@
+# Base configuration template with all required keys
+# This serves as a reference for the config schema
+
+run:
+  name: "base"
+  seed: 0
+  out_dir: "results/runs"
+  device: "cuda"        # "cpu" or "cuda"
+  dtype: "float32"      # "float32" or "float16" (float16 allowed only on cuda)
+
+data:
+  p: 113                # Prime modulus
+  train_fraction: 0.3   # Fraction of data for training
+  format: "BOS_A_B_SEP" # "BOS_A_B_SEP" or "A_B_EQ"
+
+model:
+  d_model: 128
+  n_layers: 2
+  n_heads: 4
+  d_mlp: 512
+  dropout: 0.0
+  layer_norm_eps: 1.0e-5
+  tie_embeddings: false
+  positional_encoding: "none"  # "none" or "learned"
+  max_seq_len: 4               # Required if positional_encoding is "learned"
+  mlp_activation: "relu"       # "relu" or "gelu"
+
+train:
+  batch_size: 4096
+  steps: 200000
+  eval_every: 500
+  ckpt_every: 2000
+  log_every: 100
+
+optim:
+  name: "adamw"
+  lr: 1.0e-3
+  betas: [0.9, 0.98]
+  eps: 1.0e-8
+  weight_decay: 1.0e-3
+  scheduler:
+    name: "constant"    # "constant" or "cosine"
+    warmup_steps: 200
+
+analysis:
+  checkpoints: "all"    # "all" or list of step ints
+  fourier:
+    max_freq: null      # null means full basis (p frequencies)
+  ablation:
+    mode: "embedding"   # "embedding" (required), "activation" (optional)
+    freq_sets:
+      - type: "topk"
+        k: 8
+      - type: "single"
+        k: 1
+
+interp:
+  cache_on_cpu: true    # If true, immediately .detach().to("cpu")
+  cache_fp32: true      # If model runs fp16, cache can still be fp32
+  cache_names: []       # Default empty; scripts set this as needed

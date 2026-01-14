@@ -1,0 +1,15 @@
+# Train fraction sweep configuration
+#
+# Sweeps over different train fractions to study how data size
+# affects grokking dynamics.
+
+base_config: "configs/canonical.yaml"
+
+grid:
+  data.train_fraction:
+    - 0.2
+    - 0.3
+    - 0.4
+    - 0.5
+
+repeats: 1

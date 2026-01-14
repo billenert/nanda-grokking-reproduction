@@ -1,0 +1,16 @@
+# Weight decay sweep configuration
+#
+# Sweeps over different weight decay values to find the optimal
+# setting for grokking.
+
+base_config: "configs/canonical.yaml"
+
+grid:
+  optim.weight_decay:
+    - 0.0001
+    - 0.0003
+    - 0.001
+    - 0.003
+    - 0.01
+
+repeats: 1

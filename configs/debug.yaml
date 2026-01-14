@@ -1,0 +1,58 @@
+# Debug configuration for fast iteration and testing
+# Should complete in ~1 minute on CPU
+
+run:
+  name: "debug"
+  seed: 0
+  out_dir: "results/runs"
+  device: "cpu"         # CPU for quick tests
+  dtype: "float32"
+
+data:
+  p: 17                 # Small prime (289 total examples)
+  train_fraction: 0.3   # ~86 train, ~203 test
+  format: "BOS_A_B_SEP"
+
+model:
+  d_model: 64           # Smaller than canonical (128)
+  n_layers: 1           # Single layer
+  n_heads: 4
+  d_mlp: 128            # Smaller than canonical (512)
+  dropout: 0.0
+  layer_norm_eps: 1.0e-5
+  tie_embeddings: false
+  positional_encoding: "none"
+  max_seq_len: 4
+  mlp_activation: "relu"
+
+train:
+  batch_size: 64        # Smaller batches
+  steps: 1000           # Short run
+  eval_every: 100       # Frequent eval for debugging
+  ckpt_every: 500       # 2 checkpoints
+  log_every: 50
+
+optim:
+  name: "adamw"
+  lr: 1.0e-3
+  betas: [0.9, 0.98]
+  eps: 1.0e-8
+  weight_decay: 1.0e-2  # Higher for small data
+  scheduler:
+    name: "constant"
+    warmup_steps: 50
+
+analysis:
+  checkpoints: "all"
+  fourier:
+    max_freq: null
+  ablation:
+    mode: "embedding"
+    freq_sets:
+      - type: "topk"
+        k: 4
+
+interp:
+  cache_on_cpu: true
+  cache_fp32: true
+  cache_names: []
