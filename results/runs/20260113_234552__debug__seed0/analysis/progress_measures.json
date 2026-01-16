@@ -1,0 +1,31 @@
+{
+  "checkpoints": [
+    {
+      "step": 0,
+      "acc_test": 0.06896551698446274,
+      "embed_mass_topk_4": 0.5309884438678486,
+      "unembed_mass_topk_4": 0.5277889284823379,
+      "embed_mass_topk_8": 1.0,
+      "unembed_mass_topk_8": 1.0,
+      "spec_align": 0.9896283745765686
+    },
+    {
+      "step": 500,
+      "acc_test": 0.2610837519168854,
+      "embed_mass_topk_4": 0.5436608588086549,
+      "unembed_mass_topk_4": 0.527302070551317,
+      "embed_mass_topk_8": 1.0,
+      "unembed_mass_topk_8": 1.0,
+      "spec_align": 0.9872115254402161
+    },
+    {
+      "step": 999,
+      "acc_test": 0.2610837519168854,
+      "embed_mass_topk_4": 0.5436739517387323,
+      "unembed_mass_topk_4": 0.5202538164699959,
+      "embed_mass_topk_8": 1.0,
+      "unembed_mass_topk_8": 1.0,
+      "spec_align": 0.9900780320167542
+    }
+  ]
+}

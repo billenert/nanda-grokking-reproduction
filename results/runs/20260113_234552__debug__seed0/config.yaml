@@ -1,0 +1,51 @@
+run:
+  name: debug
+  seed: 0
+  out_dir: results/runs
+  device: cpu
+  dtype: float32
+data:
+  p: 17
+  train_fraction: 0.3
+  format: BOS_A_B_SEP
+model:
+  d_model: 64
+  n_layers: 1
+  n_heads: 4
+  d_mlp: 128
+  dropout: 0.0
+  layer_norm_eps: 1.0e-05
+  tie_embeddings: false
+  positional_encoding: none
+  max_seq_len: 4
+  mlp_activation: relu
+train:
+  batch_size: 64
+  steps: 1000
+  eval_every: 100
+  ckpt_every: 500
+  log_every: 50
+optim:
+  name: adamw
+  lr: 0.001
+  betas:
+  - 0.9
+  - 0.98
+  eps: 1.0e-08
+  weight_decay: 0.01
+  scheduler:
+    name: constant
+    warmup_steps: 50
+analysis:
+  checkpoints: all
+  fourier:
+    max_freq: null
+  ablation:
+    mode: embedding
+    freq_sets:
+    - type: topk
+      k: 4
+interp:
+  cache_on_cpu: true
+  cache_fp32: true
+  cache_names: []

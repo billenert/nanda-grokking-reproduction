@@ -1,5 +1,8 @@
-# Results directory (contains run outputs)
-results/
+# Checkpoint files (too large for git)
+*.pt
+
+# Large result files
+results/*/checkpoints/
 
 # Python
 __pycache__/
